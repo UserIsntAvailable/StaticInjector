@@ -22,6 +22,11 @@ namespace ConsoleSample.InjectedClasses
 {
     internal class Console
     {
+        /// <summary>
+        /// Writes a line to the console
+        /// </summary>
+        /// <param name="value">The value that will be printed at the console</param>
+        /// <param name="amount">The amount of times it will be printed</param>
         public void WriteLine(string value, int amount)
         {
             for(var i = 0; i < amount; i++)
@@ -30,6 +35,10 @@ namespace ConsoleSample.InjectedClasses
             }
         }
 
+        /// <summary>
+        /// Reads input from the user
+        /// </summary>
+        /// <returns>The string that the user wrote</returns>
         public string? ReadLine()
         {
             return System.Console.ReadLine();
@@ -38,9 +47,12 @@ namespace ConsoleSample.InjectedClasses
 
     internal class Logger
     {
+        /// <summary>
+        /// Logs something to the console 
+        /// </summary>
         public void Log(string value)
         {
-            System.Console.WriteLine(value);
+            System.Console.Write(value);
         }
 
         public void LogLine(string value)

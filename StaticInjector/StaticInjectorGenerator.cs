@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -50,6 +52,13 @@ namespace {STATIC_INJECTOR_NAME}
 
         public void Initialize(GeneratorInitializationContext context)
         {
+        #if DEBUG
+            if(!Debugger.IsAttached)
+            {
+                Debugger.Launch();
+            }
+        #endif
+            
             context.RegisterForPostInitialization(
                 x => x.AddSource(
                     $"{StaticInjectorAttributeName}.Generated.cs",
@@ -126,7 +135,7 @@ namespace {STATIC_INJECTOR_NAME}
 
                 this.WriteTypeMethods(typeMethods, fieldName);
 
-                _sourceBuilder.WriteLine($"#endregion");
+                _sourceBuilder.WriteLine("#endregion");
 
                 if(i != typesToInject.Count - 1) _sourceBuilder.WriteLine();
             }
@@ -141,9 +150,18 @@ namespace {STATIC_INJECTOR_NAME}
                                                  .Select(p => (p.Type!.ToString(), p.Identifier.ToString()))
                                                  .ToArray();
 
-                // TODO - Write XML comments from the method and the interface implementation
+                // TODO - Get interface implementation methods xml comments
 
+                var xmlCommentBlock = string.Join(
+                    "\n",
+                    typeMethod.GetLeadingTrivia()
+                              .Where(x => x.Kind() == SyntaxKind.SingleLineDocumentationCommentTrivia)
+                              .Select(x => x.ToFullString())
+                );
+                _sourceBuilder.Write(xmlCommentBlock);
+                
                 var methodName = typeMethod.Identifier.ToString();
+                
                 var methodModifiers = typeMethod.Modifiers.Select(m => m.ToString()).ToList();
                 methodModifiers.Insert(1, "static");
 
