@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace StaticInjector
 {
+    // TODO - Report diagnostics
+    
     [Generator]
     // ReSharper disable once InconsistentNaming
     public class StaticInjectorGenerator : ISourceGenerator
