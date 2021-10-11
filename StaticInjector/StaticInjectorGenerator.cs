@@ -144,13 +144,14 @@ namespace {nameof(StaticInjector)}
 
                 // TODO - Get interface implementation methods xml comments
 
-                var xmlCommentBlock = string.Join(
-                    "\n",
-                    typeMethod.GetLeadingTrivia()
-                              .Where(x => x.Kind() == SyntaxKind.SingleLineDocumentationCommentTrivia)
-                              .Select(x => x.ToFullString())
-                );
-                _sourceBuilder.Write(xmlCommentBlock);
+                var xmlComments = typeMethod.GetLeadingTrivia()
+                                            .Where(x => x.Kind() == SyntaxKind.SingleLineDocumentationCommentTrivia)
+                                            .Select(x => x.ToFullString().Trim());
+                
+                foreach(var xmlComment in xmlComments)
+                {
+                    _sourceBuilder.WriteLine(xmlComment);
+                }
                 
                 var methodName = typeMethod.Identifier.ToString();
                 
