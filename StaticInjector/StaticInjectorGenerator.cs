@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -26,7 +25,7 @@ namespace StaticInjector
 
 using System;
 
-namespace {STATIC_INJECTOR_NAME}
+namespace {nameof(StaticInjector)}
 {{
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal sealed class {StaticInjectorAttributeName} : Attribute
@@ -52,13 +51,6 @@ namespace {STATIC_INJECTOR_NAME}
 
         public void Initialize(GeneratorInitializationContext context)
         {
-        #if DEBUG
-            if(!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-        #endif
-            
             context.RegisterForPostInitialization(
                 x => x.AddSource(
                     $"{StaticInjectorAttributeName}.Generated.cs",

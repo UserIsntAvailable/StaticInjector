@@ -24,7 +24,7 @@ namespace StaticInjector
                     attrList => attrList.Attributes.Where(
                         attr => attr.ArgumentList?.Arguments.Count == 1 
                                 && context.SemanticModel.GetTypeInfo(attr).Type?.ToDisplayString() ==
-                                $"{StaticInjectorGenerator.STATIC_INJECTOR_NAME}.{StaticInjectorGenerator.StaticInjectorAttributeName}"
+                                $"{nameof(StaticInjector)}.{StaticInjectorGenerator.StaticInjectorAttributeName}"
                     )
                 ).Select(
                     attr =>

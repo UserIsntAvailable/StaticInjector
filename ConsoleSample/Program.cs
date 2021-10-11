@@ -1,5 +1,5 @@
 ﻿using ConsoleSample.InjectedClasses;
-using InjectStatic;
+using StaticInjector;
 
 namespace ConsoleSample
 {
