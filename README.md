@@ -40,15 +40,13 @@ This is the code that is generated with it:
 
 #nullable enable
 
-using ConsoleSample.InjectedClasses;
-
 namespace ConsoleSample
 {
     public static partial class App
     {
         #region Console
-        private static readonly Console _console = new();
-		
+        private static readonly global::ConsoleSample.InjectedClasses.Console _console = new();
+
         /// <summary>
         /// Writes a line to the console
         /// </summary>
@@ -56,28 +54,24 @@ namespace ConsoleSample
         /// <param name="amount">The amount of times it will be printed</param>
         public static void WriteLine(string value, int amount) =>
             _console.WriteLine(value, amount);
-		
+        
         /// <summary>
         /// Reads input from the user
         /// </summary>
         /// <returns>The string that the user wrote</returns>
-        public static string? ReadLine() =>
+        public static string ReadLine() =>
             _console.ReadLine();
         #endregion
-		
-        #region Logger
-        private static readonly Logger _logger = new();
-		
-        /// <summary>
-        /// Logs something to the console 
-        /// </summary>
-        public static void Log(string value) =>
-            _logger.Log(value);
-		
-        public static void LogLine(string value) =>
-            _logger.LogLine(value);
-        #endregion
-	}
-}
 
+        #region AccountRepository
+        private static readonly global::ConsoleSample.InjectedClasses.AccountRepository _accountRepository = new();
+
+        /// <summary>
+        /// Retrieves all the <see cref="Account"/>s in the repository.
+        /// </summary>
+        public static global::System.Collections.Generic.List<global::ConsoleSample.InjectedClasses.Account> GetAllAccounts() =>
+            _accountRepository.GetAllAccounts();
+        #endregion
+    }
+}
 ```

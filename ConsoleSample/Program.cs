@@ -1,4 +1,5 @@
-﻿using ConsoleSample.InjectedClasses;
+﻿using System.Collections.Generic;
+using ConsoleSample.InjectedClasses;
 using StaticInjector;
 
 namespace ConsoleSample
@@ -7,12 +8,12 @@ namespace ConsoleSample
     {
         private static void Main(string[] args)
         {
-            App.Log("Called From Generated File");
+            App.WriteLine("Called From Generated File", 2);
         }
     }
 
     [InjectStatic(typeof(Console))]
-    [InjectStatic(typeof(Logger))]
+    [InjectStatic(typeof(AccountRepository))]
     public static partial class App
     {
     }
@@ -27,7 +28,7 @@ namespace ConsoleSample.InjectedClasses
         /// </summary>
         /// <param name="value">The value that will be printed at the console</param>
         /// <param name="amount">The amount of times it will be printed</param>
-        public void WriteLine(string value, int amount)
+        public void WriteLine(string value, int amount = 1)
         {
             for(var i = 0; i < amount; i++)
             {
@@ -45,19 +46,15 @@ namespace ConsoleSample.InjectedClasses
         }
     }
 
-    internal class Logger
+    internal class AccountRepository
     {
-        /// <summary>
-        /// Logs something to the console 
-        /// </summary>
-        public void Log(string value)
-        {
-            System.Console.Write(value);
-        }
+        private readonly List<Account?> _accounts = new();
 
-        public void LogLine(string value)
-        {
-            this.Log($"{value}\n");
-        }
+        /// <summary>
+        /// Retrieves all the <see cref="Account"/>s in the repository.
+        /// </summary>
+        public List<Account?> GetAllAccounts() => _accounts;
     }
+
+    public record Account(string FirstName, string LastName);
 }
