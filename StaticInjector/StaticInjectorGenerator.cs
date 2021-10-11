@@ -11,7 +11,6 @@ namespace StaticInjector
 {
     /* KNOWN BUGS:
      * BUG - Default values of parameters are not injected
-     * BUG - Nullable syntax ( ? ) is not copied correctly. ( ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) doesn't carry it over )
      * BUG - crefs are not pointing the fully qualified namespace of the ref.
      */
     
@@ -114,7 +113,7 @@ namespace {nameof(StaticInjector)}
 
                 _sourceBuilder.WriteField(
                     new[] { "private", "static", "readonly", },
-                    typeToInject.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+                    GetFullyQualifiedFormatWithNullables(typeToInject),
                     fieldName,
                     "new()"
                 );
@@ -165,7 +164,7 @@ namespace {nameof(StaticInjector)}
 
                 _sourceBuilder.WriteMethod(
                     methodModifiers,
-                    typeMethodSymbol.ReturnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+                    GetFullyQualifiedFormatWithNullables(typeMethodSymbol.ReturnType),
                     methodName,
                     methodParameters,
                     false
@@ -178,6 +177,21 @@ namespace {nameof(StaticInjector)}
 
                 if(i != typeMethodsSymbols.Count - 1) _sourceBuilder.WriteLine();
             }
+        }
+
+        private static string GetFullyQualifiedFormatWithNullables(ISymbol typeSymbol)
+        {
+            var format = new SymbolDisplayFormat(
+                SymbolDisplayGlobalNamespaceStyle.Included,
+                SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+                genericsOptions: SymbolDisplayGenericsOptions.IncludeVariance |
+                                 SymbolDisplayGenericsOptions.IncludeTypeParameters,
+                miscellaneousOptions:  SymbolDisplayMiscellaneousOptions.UseErrorTypeSymbolName |
+                                       SymbolDisplayMiscellaneousOptions.UseSpecialTypes |
+                                       SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier
+            );
+
+            return typeSymbol.ToDisplayString(format);
         }
     }
 }

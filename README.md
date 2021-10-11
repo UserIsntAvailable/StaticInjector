@@ -46,7 +46,7 @@ namespace ConsoleSample
     {
         #region Console
         private static readonly global::ConsoleSample.InjectedClasses.Console _console = new();
-
+		
         /// <summary>
         /// Writes a line to the console
         /// </summary>
@@ -54,22 +54,22 @@ namespace ConsoleSample
         /// <param name="amount">The amount of times it will be printed</param>
         public static void WriteLine(string value, int amount) =>
             _console.WriteLine(value, amount);
-        
+		
         /// <summary>
         /// Reads input from the user
         /// </summary>
         /// <returns>The string that the user wrote</returns>
-        public static string ReadLine() =>
+        public static string? ReadLine() =>
             _console.ReadLine();
         #endregion
-
+		
         #region AccountRepository
         private static readonly global::ConsoleSample.InjectedClasses.AccountRepository _accountRepository = new();
-
+		
         /// <summary>
         /// Retrieves all the <see cref="Account"/>s in the repository.
         /// </summary>
-        public static global::System.Collections.Generic.List<global::ConsoleSample.InjectedClasses.Account> GetAllAccounts() =>
+        public static global::System.Collections.Generic.List<global::ConsoleSample.InjectedClasses.Account?> GetAllAccounts() =>
             _accountRepository.GetAllAccounts();
         #endregion
     }
