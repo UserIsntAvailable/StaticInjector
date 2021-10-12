@@ -8,7 +8,7 @@ namespace ConsoleSample
     {
         private static void Main(string[] args)
         {
-            App.WriteLine("Called From Generated File", 2);
+            App.WriteLine("Called From Generated File");
         }
     }
 

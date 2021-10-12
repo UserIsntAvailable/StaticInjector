@@ -76,10 +76,15 @@ namespace StaticInjector
             IEnumerable<string> modifiers,
             string returnType,
             string name,
-            IEnumerable<(string paraType, string paraName)> parameters,
+            IEnumerable<(string paraType, string paraName, string defaultValue)> parameters,
             bool startScope = true)
         {
-            var parametersString = string.Join(", ", parameters.Select(p => $"{p.paraType} {p.paraName}"));
+            var parametersString = string.Join(
+                ", ",
+                parameters.Select(
+                    p => $"{p.paraType} {p.paraName}{(p.defaultValue == "" ? "" : $" = {p.defaultValue}")}"
+                )
+            );
 
             var methodDecl = $"{string.Join(" ", modifiers)} {returnType} {name}({parametersString})";
 

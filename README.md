@@ -52,7 +52,7 @@ namespace ConsoleSample
         /// </summary>
         /// <param name="value">The value that will be printed at the console</param>
         /// <param name="amount">The amount of times it will be printed</param>
-        public static void WriteLine(string value, int amount) =>
+        public static void WriteLine(string value, int amount = 1) =>
             _console.WriteLine(value, amount);
 		
         /// <summary>

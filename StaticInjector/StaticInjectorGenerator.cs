@@ -10,7 +10,6 @@ using Microsoft.CodeAnalysis.Text;
 namespace StaticInjector
 {
     /* KNOWN BUGS:
-     * BUG - Default values of parameters are not injected
      * BUG - crefs are not pointing the fully qualified namespace of the ref.
      */
     
@@ -142,9 +141,13 @@ namespace {nameof(StaticInjector)}
                 var typeMethod = typeMethodSymbol.DeclaringSyntaxReferences.First()
                                                  .GetSyntax() as MethodDeclarationSyntax;
 
-                var methodParameters = typeMethod!.ParameterList.Parameters
-                                                  .Select(p => (p.Type!.ToString(), p.Identifier.ToString()))
-                                                  .ToArray();
+                var methodParameters = typeMethod!.ParameterList.Parameters.Select(
+                    p => (
+                        p.Type!.ToString(),
+                        p.Identifier.ToString(),
+                        $"{p.Default}".Replace("= ", "")
+                    )
+                ).ToArray();
 
                 // TODO - Get interface implementation methods xml comments
 

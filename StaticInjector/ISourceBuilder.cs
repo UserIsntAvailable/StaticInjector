@@ -47,7 +47,7 @@ namespace StaticInjector
             IEnumerable<string> modifiers,
             string returnType,
             string name,
-            IEnumerable<(string paraType, string paraName)> parameters,
+            IEnumerable<(string paraType, string paraName, string defaultValue)> parameters,
             bool startScope = true);
 
         /// <summary>
