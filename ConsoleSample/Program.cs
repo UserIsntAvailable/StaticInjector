@@ -12,8 +12,8 @@ namespace ConsoleSample
         }
     }
 
-    [InjectStatic(typeof(Console))]
-    [InjectStatic(typeof(AccountRepository))]
+    [Inject(typeof(Console))]
+    [Inject(typeof(AccountRepository))]
     public static partial class App
     {
     }

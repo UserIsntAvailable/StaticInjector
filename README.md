@@ -19,7 +19,7 @@ Create a partial class with the ```InjectStaticAttribute``` ( don't forget to ad
 ```c#
 using StaticInjector;
 
-[InjectStatic(typeof(Type that you want inject))]
+[Inject(typeof(Type that you want inject))]
 public static partial class App
 {
 }

@@ -19,7 +19,7 @@ namespace StaticInjector
     // ReSharper disable once InconsistentNaming
     public class StaticInjectorGenerator : ISourceGenerator
     {
-        internal const string STATIC_INJECTOR_NAME = "InjectStatic";
+        internal const string STATIC_INJECTOR_NAME = "Inject";
 
         internal static readonly string StaticInjectorAttributeName = $"{STATIC_INJECTOR_NAME}Attribute";
 
